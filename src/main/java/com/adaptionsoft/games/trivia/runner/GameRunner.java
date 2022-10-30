@@ -7,8 +7,6 @@ import java.util.Random;
 
 public class GameRunner {
 
-    private static boolean notAWinner;
-
     public static void main(String[] args) {
         Game aGame = new Game();
 
@@ -18,6 +16,7 @@ public class GameRunner {
 
         Random rand = new Random();
 
+        boolean notAWinner;
         do {
 
             aGame.roll(rand.nextInt(5) + 1);

@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-	ArrayList players = new ArrayList();
-	int[] places = new int[6];
-	int[] purses = new int[6];
-	boolean[] inPenaltyBox = new boolean[6];
+	private static final String SPORTS = "Sports";
+	private static final String SCIENCE = "Science";
+	private static final String ROCK = "Rock";
+	private static final String POP = "Pop";
+	final ArrayList<String> players = new ArrayList<>();
+	final int[] places = new int[6];
+	final int[] purses = new int[6];
+	final boolean[] inPenaltyBox = new boolean[6];
 
-	LinkedList popQuestions = new LinkedList();
-	LinkedList scienceQuestions = new LinkedList();
-	LinkedList sportsQuestions = new LinkedList();
-	LinkedList rockQuestions = new LinkedList();
+	final LinkedList<String> popQuestions = new LinkedList<>();
+	final LinkedList<String> scienceQuestions = new LinkedList<>();
+	final LinkedList<String> sportsQuestions = new LinkedList<>();
+	final LinkedList<String> rockQuestions = new LinkedList<>();
 
 	int currentPlayer = 0;
 	boolean isGettingOutOfPenaltyBox;
@@ -30,11 +34,7 @@ public class Game {
 		return "Rock Question " + index;
 	}
 
-	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
-	}
-
-	public boolean add(String playerName) {
+	public void add(String playerName) {
 
 
 		players.add(playerName);
@@ -44,7 +44,6 @@ public class Game {
 
 		System.out.println(playerName + " was added");
 		System.out.println("They are player number " + players.size());
-		return true;
 	}
 
 	public int howManyPlayers() {
@@ -88,28 +87,28 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		if (currentCategory() == "Pop")
+		if (POP.equals(currentCategory()))
 			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
+		if (SCIENCE.equalsIgnoreCase(currentCategory()))
 			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
+		if (SPORTS.equalsIgnoreCase(currentCategory()))
 			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
+		if (ROCK.equalsIgnoreCase(currentCategory()))
 			System.out.println(rockQuestions.removeFirst());
 	}
 
 
 	private String currentCategory() {
-		if (places[currentPlayer] == 0) return "Pop";
-		if (places[currentPlayer] == 4) return "Pop";
-		if (places[currentPlayer] == 8) return "Pop";
-		if (places[currentPlayer] == 1) return "Science";
-		if (places[currentPlayer] == 5) return "Science";
-		if (places[currentPlayer] == 9) return "Science";
-		if (places[currentPlayer] == 2) return "Sports";
-		if (places[currentPlayer] == 6) return "Sports";
-		if (places[currentPlayer] == 10) return "Sports";
-		return "Rock";
+		if (places[currentPlayer] == 0) return POP;
+		if (places[currentPlayer] == 4) return POP;
+		if (places[currentPlayer] == 8) return POP;
+		if (places[currentPlayer] == 1) return SCIENCE;
+		if (places[currentPlayer] == 5) return SCIENCE;
+		if (places[currentPlayer] == 9) return SCIENCE;
+		if (places[currentPlayer] == 2) return SPORTS;
+		if (places[currentPlayer] == 6) return SPORTS;
+		if (places[currentPlayer] == 10) return SPORTS;
+		return ROCK;
 	}
 
 	public boolean wasCorrectlyAnswered() {
@@ -163,6 +162,6 @@ public class Game {
 
 
 	private boolean didPlayerWin() {
-		return !(purses[currentPlayer] == 6);
+		return (purses[currentPlayer] != 6);
 	}
 }
